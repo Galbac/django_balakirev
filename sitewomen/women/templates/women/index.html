@@ -1,0 +1,21 @@
+{%extends "base.html"%}
+{% block content  %}
+{%include 'women/includes/nav.html' only with title="Zidan"%}
+<h1>{{title}}</h1>
+<ul>
+    {%for bio in bios%}
+    {%if bio.is_published%}
+
+    <li>
+        <h1>{{bio.title}}</h1>
+        <p>{{bio.content}}</p>
+        <p><a href="{% url 'post' bio.id%}">читать</a></p>
+        {%if not forloop.last%}
+        <hr>
+        {%endif%}
+    </li>
+    {%endif%}
+    {%endfor%}
+</ul>
+{% include 'women/includes/nav.html' %}
+{% endblock %}

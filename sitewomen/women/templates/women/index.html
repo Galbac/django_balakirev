@@ -1,21 +1,18 @@
-{%extends "base.html"%}
-{% block content  %}
-{%include 'women/includes/nav.html' only with title="Zidan"%}
-<h1>{{title}}</h1>
-<ul>
-    {%for bio in bios%}
-    {%if bio.is_published%}
+{% extends 'base.html' %}
 
-    <li>
-        <h1>{{bio.title}}</h1>
-        <p>{{bio.content}}</p>
-        <p><a href="{% url 'post' bio.id%}">читать</a></p>
-        {%if not forloop.last%}
-        <hr>
-        {%endif%}
-    </li>
-    {%endif%}
-    {%endfor%}
+{% block content %}
+{%include 'women/includes/nav.html' only with title="Zidan"%}
+<ul class="list-articles">
+	{% for p in bios %}
+	{% if p.is_published %}
+			<li><h2>{{p.title}}</h2>
+	{%autoescape off%}
+	{{p.content| linebreaks | truncatewords:40}}
+	{%endautoescape%}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="{% url 'post' p.id %}">Читать пост</a></p>
+			</li>
+	{% endif %}
+	{% endfor %}
 </ul>
-{% include 'women/includes/nav.html' %}
 {% endblock %}

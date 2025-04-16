@@ -16,6 +16,12 @@ data_db = [
     {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулия Робертс', 'is_published': True},
 ]
 
+cats_db = [
+    {"id": 1, "name": "Актрисы"},
+    {"id": 2, "name": "Певицы"},
+    {"id": 3, "name": "Спортсменки"},
+]
+
 
 # Функция, которая проверяет, является ли число простым
 
@@ -30,7 +36,7 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'women/about.html', {"title": "О сайте","menu":menu})
+    return render(request, 'women/about.html', {"title": "О сайте", "menu": menu})
 
 
 def show_post(request, post_id):
@@ -43,6 +49,10 @@ def addpage(request):
 
 def contact(request):
     return HttpResponse("Обратная связь")
+
+
+def show_category(request, cats_id):
+    return index(request)
 
 
 def login(request):

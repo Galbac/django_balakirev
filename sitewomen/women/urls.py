@@ -13,7 +13,8 @@ urlpatterns = [
     path('post/<int:post_id>',views.show_post,name="post"),
     path('addpage/',views.addpage, name="addpage"),
     path('contact/',views.contact,name='contact'),
-    path('login/',views.login,name='login')
+    path('login/',views.login,name='login'),
+    path('category/<int:cats_id>',views.show_category, name='category')
 ]
 
 

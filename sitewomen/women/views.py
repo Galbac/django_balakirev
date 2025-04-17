@@ -30,7 +30,8 @@ def index(request):
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'bios': data_db
+        'bios': data_db,
+        "cat_selected": 0
     }
     return render(request, 'women/index.html', data)
 
@@ -52,7 +53,13 @@ def contact(request):
 
 
 def show_category(request, cats_id):
-    return index(request)
+    data = {
+        'title': 'Отображение по рубрикам',
+        'menu': menu,
+        'bios': data_db,
+        "cat_selected": cats_id
+    }
+    return render(request, 'women/index.html', data)
 
 
 def login(request):

@@ -1,6 +1,8 @@
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+
+from women.models import Women
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'addpage'},
@@ -27,11 +29,11 @@ cats_db = [
 
 
 def index(request):
+    posts = Women.objects.filter(is_published=1)
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'bios': data_db,
-        "cat_selected": 0
+        'posts': posts
     }
     return render(request, 'women/index.html', data)
 
@@ -40,8 +42,15 @@ def about(request):
     return render(request, 'women/about.html', {"title": "О сайте", "menu": menu})
 
 
-def show_post(request, post_id):
-    return HttpResponse(f'Оторбражение статьи c id = {post_id}')
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        "cat_selected": 1
+    }
+    return render(request, 'women/post.html', context=data)
 
 
 def addpage(request):

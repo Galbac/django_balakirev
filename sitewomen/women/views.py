@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from women.models import Women, Category
+from women.models import Women, Category, TagPost
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'addpage'},
@@ -19,7 +19,8 @@ def index(request):
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': posts
+        'posts': posts,
+        'cat_selected': 0
     }
     return render(request, 'women/index.html', data)
 
@@ -61,3 +62,15 @@ def show_category(request, cat_slug):
 
 def login(request):
     return HttpResponse("Авторизация")
+
+
+def show_tag_postlist(request, tag_slug):
+    tag = get_object_or_404(TagPost, slug=tag_slug)
+    posts = tag.tags.filter(is_published=Women.Status.PUBLISHED)
+    data = {
+        "title": f'Тег: {tag.tag}',
+        'menu': menu,
+        'posts': posts,
+        'cat_selected': None
+    }
+    return render(request, 'women/index.html', context=data)

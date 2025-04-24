@@ -26,3 +26,7 @@ urlpatterns = [
               ] + debug_toolbar_urls()
 
 handler404 = page_not_found
+
+admin.site.site_header = 'Панель администрирования'
+admin.site.index_title = "Известные женщины мира"
+admin.site.title = 'Админка сайта'

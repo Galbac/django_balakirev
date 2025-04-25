@@ -30,6 +30,11 @@ class WomenAdmin(admin.ModelAdmin):
     actions = ['set_published', 'set_draft']
     search_fields = ['title__startswith', 'cat__name']
     list_filter = [MarriedFilter, 'cat__name', 'is_published']
+    fields = ['title', 'slug','content','cat','husband','tags']
+    filter_horizontal = ['tags']
+    # readonly_fields = ['slug']
+    prepopulated_fields = {'slug': ('title',)}
+    # exclude = ['tags', 'is_published']
 
     @admin.display(description="Краткое описание", ordering='content')
     def brief_info(self, women: Women):

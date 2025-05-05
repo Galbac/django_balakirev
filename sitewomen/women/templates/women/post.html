@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block breadcrumbs %}
 <!-- Теги -->
@@ -14,10 +14,12 @@
 {% endwith %}
 {% endblock %}
 
-{%block content%}
+{% block content %}
 <h1>{{post.title}}</h1>
+
 {% if post.photo %}
-<p ><img class="img-article-left" src="{{post.photo.url}}"></p>
+<p><img class="img-article-left" src="{{post.photo.url}}"></p>
 {% endif %}
+
 {{post.content|linebreaks}}
-{%endblock%}
+{% endblock %}

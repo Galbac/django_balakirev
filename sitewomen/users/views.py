@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
+from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -33,7 +34,7 @@ class RegisterUser(CreateView):
 class ProfileUser(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
-    template_name =  'users/profile.html'
+    template_name = 'users/profile.html'
     extra_context = {'title': "Профиль пользователя"}
 
     def get_success_url(self):
@@ -48,3 +49,6 @@ class UserPasswordChange(PasswordChangeView):
     success_url = reverse_lazy("users:password_change_done")
     template_name = "users/password_change_form.html"
     extra_context = {'title': "Изменение пароля"}
+
+
+
